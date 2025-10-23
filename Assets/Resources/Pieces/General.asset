@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78d34ea5f5ec8ca4fb575a3f87d7e133, type: 3}
+  m_Name: General
+  m_EditorClassIdentifier: Assembly-CSharp::ChessDeck.PieceDefinition
+  displayName: General
+  sprite: {fileID: 0}
+  isKing: 0
+  isPawn: 0
+  cost: 4
+  whiteSprite: {fileID: 0}
+  blackSprite: {fileID: 0}
+  moveKind: 0
+  dirN: 1
+  dirS: 1
+  dirE: 1
+  dirW: 1
+  dirNE: 1
+  dirNW: 1
+  dirSE: 1
+  dirSW: 1
+  maxRange: 1
+  stepOffsets: []
+  special: 7
