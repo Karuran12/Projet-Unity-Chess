@@ -24,7 +24,7 @@ namespace ChessDeck
         public CanvasGroup blackGroup;       
 
         const int SLOTS_PER_SIDE = 4;
-        const int MAX_COPIES_PER_TYPE = 2;
+        const int MAX_COPIES_PER_TYPE = 1;
 
         readonly List<PieceDefinition> allMajors = new List<PieceDefinition>();
         readonly List<PieceDefinition> whitePick = new List<PieceDefinition>(SLOTS_PER_SIDE);
@@ -57,24 +57,29 @@ namespace ChessDeck
         }
 
         void BuildPiecesButtons()
-        {
-            foreach (Transform c in piecesListParent) Destroy(c.gameObject);
+{
+    foreach (Transform c in piecesListParent) Destroy(c.gameObject);
 
-            foreach (var def in allMajors)
-            {
-                var go = Instantiate(pieceButtonPrefab, piecesListParent);
-                go.name = $"Btn_{def.displayName}";
+    foreach (var def in allMajors)
+    {
+        var go = Instantiate(pieceButtonPrefab, piecesListParent);
+        go.name = $"Btn_{def.displayName}";
 
-                var btn = go.GetComponent<Button>();
-                if (!btn) btn = go.AddComponent<Button>();
-                btn.onClick.AddListener(() => OnPick(def));
+        var icon = go.transform.Find("Icon");
+        if (icon) Destroy(icon.gameObject);
 
-                var tmp = go.GetComponentInChildren<TMP_Text>();
-                if (tmp) tmp.text = def.displayName;
-                var utext = go.GetComponentInChildren<Text>();
-                if (!tmp && utext) utext.text = def.displayName;
-            }
-        }
+        var btn = go.GetComponent<Button>();
+        if (!btn) btn = go.AddComponent<Button>();
+        btn.onClick.AddListener(() => OnPick(def));
+
+        var tmp = go.GetComponentInChildren<TMP_Text>();
+        if (tmp) tmp.text = def.displayName;
+        var utext = go.GetComponentInChildren<Text>();
+        if (!tmp && utext) utext.text = def.displayName;
+    }
+}
+
+
 
         void AutoBindSlotButtons()
         {
@@ -199,7 +204,7 @@ namespace ChessDeck
                 PlayerLoadout.I.blackMajors[i] = blackPick[i];
             }
 
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("Game");
         }
 
         void EnsureArraySize(PieceDefinition[] arr, int size)
