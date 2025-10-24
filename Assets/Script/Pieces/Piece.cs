@@ -53,10 +53,33 @@ namespace ChessDeck
 
             sr = GetComponent<SpriteRenderer>();
             if (!sr) sr = gameObject.AddComponent<SpriteRenderer>();
-            sr.sprite = def.sprite;
+
+            Sprite chosen =
+                (team == Team.White && def.whiteSprite) ? def.whiteSprite :
+                (team == Team.Black && def.blackSprite) ? def.blackSprite :
+                def.sprite;
+
+            sr.sprite = chosen;
+            sr.color = Color.white;
             sr.sortingOrder = 5;
 
+            FitToCell();
             transform.position = new Vector3(x * board.cellSize, y * board.cellSize, 0);
+        }
+
+        void FitToCell()
+        {
+            if (sr.sprite == null || board == null) return;
+            float target = board.cellSize * 0.9f;
+            Vector2 sz = sr.sprite.bounds.size;
+            float k = target / Mathf.Max(sz.x, sz.y);
+            transform.localScale = new Vector3(k, k, 1f);
+        }
+
+        public void RefreshSpriteAndFit(Sprite newSprite)
+        {
+            sr.sprite = newSprite;
+            FitToCell();
         }
 
         public IEnumerable<MoveCandidate> GetMoves(Piece[,] occ)
